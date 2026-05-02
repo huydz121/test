@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Academy - Luyện thi Giữa kỳ</title>
+    <meta name="description" content="Hệ thống ôn tập trắc nghiệm AWS Academy Module 2-13 với 240 câu hỏi">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg:#0f1117;--surface:#1a1d27;--surface2:#242836;--border:#2e3347;
+            --primary:#ff9900;--primary-glow:rgba(255,153,0,.15);
+            --text:#e4e4e7;--text-dim:#9ca3af;
+            --success:#22c55e;--success-bg:rgba(34,197,94,.12);
+            --error:#ef4444;--error-bg:rgba(239,68,68,.12);
+            --info:#3b82f6;--info-bg:rgba(59,130,246,.1);
+            --selected:#a855f7;--selected-bg:rgba(168,85,247,.15);
+            --radius:12px
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+
+        /* HEADER */
+        .header{background:linear-gradient(135deg,#1a1d27 0%,#242836 100%);border-bottom:1px solid var(--border);padding:1.5rem 0;text-align:center;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+        .header h1{font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,#ff9900,#ffb84d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.3rem}
+        .header p{color:var(--text-dim);font-size:.9rem}
+        .container{max-width:900px;margin:0 auto;padding:2rem 1rem}
+
+        /* DASHBOARD */
+        .section-title{font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+        .section-title::before{content:'';width:4px;height:20px;background:var(--primary);border-radius:2px;display:inline-block}
+        .source-tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:var(--surface);padding:.4rem;border-radius:var(--radius);border:1px solid var(--border)}
+        .source-tab{flex:1;padding:.8rem 1rem;border:none;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .3s;background:transparent;color:var(--text-dim);font-family:inherit}
+        .source-tab.active{background:var(--primary);color:#000;box-shadow:0 4px 15px rgba(255,153,0,.3)}
+        .source-tab:hover:not(.active){color:var(--text);background:var(--surface2)}
+
+        .module-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;margin-bottom:1.5rem}
+        .module-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.75rem;user-select:none}
+        .module-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+        .module-card.selected{border-color:var(--primary);background:var(--primary-glow)}
+        .module-card input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+        .module-card label{cursor:pointer;font-weight:500;font-size:.9rem;line-height:1.3}
+        .module-card .q-count{font-size:.75rem;color:var(--text-dim);margin-top:.2rem}
+
+        .controls{display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
+        .btn{padding:.7rem 1.2rem;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;display:inline-flex;align-items:center;gap:.4rem}
+        .btn-primary{background:var(--primary);color:#000}
+        .btn-primary:hover{background:#ffb84d;transform:translateY(-1px);box-shadow:0 4px 15px rgba(255,153,0,.3)}
+        .btn-submit{background:var(--selected);color:#fff;font-size:1rem;padding:.85rem 2rem}
+        .btn-submit:hover:not(:disabled){background:#9333ea;transform:translateY(-1px);box-shadow:0 4px 15px rgba(168,85,247,.4)}
+        .btn-submit:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
+        .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+        .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+        .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+        .btn-lg{padding:1rem 2.5rem;font-size:1.1rem;border-radius:var(--radius)}
+
+        .start-area{text-align:center;margin-top:2rem;padding:2rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border)}
+        .start-area .count{font-size:2.5rem;font-weight:800;color:var(--primary);margin:.5rem 0}
+
+        /* QUIZ */
+        #quiz-interface{display:none}
+        .quiz-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+        .progress-wrap{flex:1;min-width:200px}
+        .progress-bar{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-top:.4rem}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#ff9900,#ffb84d);width:0;transition:width .4s ease}
+        .progress-label{display:flex;justify-content:space-between;font-size:.8rem;color:var(--text-dim);font-weight:600}
+        .stats{display:flex;gap:1rem;font-weight:700;font-size:.95rem}
+        .s-ok{color:var(--success)}.s-no{color:var(--error)}
+
+        .q-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.5rem;animation:fadeUp .4s ease}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+        .q-tag{display:inline-block;background:var(--surface2);border:1px solid var(--border);color:var(--primary);padding:.3rem .8rem;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:1.2rem}
+        .q-text{font-size:1.15rem;font-weight:600;color:var(--text);margin-bottom:1rem;line-height:1.7}
+        .q-note{font-size:.85rem;color:var(--selected);margin-bottom:1.2rem;font-style:italic;padding:.6rem 1rem;background:var(--selected-bg);border-radius:8px;border-left:3px solid var(--selected)}
+
+        /* OPTIONS */
+        .opts{display:flex;flex-direction:column;gap:.6rem}
+        .opt{text-align:left;padding:1rem 1.2rem;border:2px solid var(--border);border-radius:8px;background:var(--surface2);font-size:.95rem;cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:.8rem;font-family:inherit;color:var(--text);line-height:1.5;width:100%}
+        .opt:hover:not(:disabled):not(.correct):not(.wrong):not(.selected-opt){border-color:var(--primary);background:var(--primary-glow)}
+        .opt .letter{font-weight:700;color:var(--text-dim);min-width:22px;flex-shrink:0;transition:color .2s}
+        /* Selected (before submit) */
+        .opt.selected-opt{border-color:var(--selected);background:var(--selected-bg)}
+        .opt.selected-opt .letter{color:var(--selected)}
+        /* After submit */
+        .opt.correct{border-color:var(--success);background:var(--success-bg)}
+        .opt.correct .letter{color:var(--success)}
+        .opt.wrong{border-color:var(--error);background:var(--error-bg)}
+        .opt.wrong .letter{color:var(--error)}
+        .opt:disabled{cursor:default}
+        .opt.dimmed{opacity:.45}
+
+        /* SUBMIT & NEXT */
+        #submit-area{margin-top:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+        #submit-area .hint{font-size:.82rem;color:var(--text-dim);font-style:italic}
+        .explain{display:none;margin-top:1.5rem;padding:1.4rem;border-radius:10px;background:var(--info-bg);border-left:4px solid var(--info);animation:fadeUp .4s ease}
+        .explain h4{color:var(--info);margin-bottom:.6rem;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+        .explain p{color:var(--text-dim);font-size:.92rem;line-height:1.8}
+        .correct-label{background:var(--success-bg);border:1px solid var(--success);color:var(--success);padding:.4rem .9rem;border-radius:6px;font-size:.82rem;font-weight:700;display:inline-block;margin-bottom:.7rem}
+        .wrong-label{background:var(--error-bg);border:1px solid var(--error);color:var(--error);padding:.4rem .9rem;border-radius:6px;font-size:.82rem;font-weight:700;display:inline-block;margin-bottom:.7rem}
+
+        .next-area{display:none;text-align:right;margin-top:1.2rem;animation:fadeUp .3s ease}
+
+        /* RESULTS */
+        #results{display:none}
+        .result-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3rem 2rem;text-align:center}
+        .result-circle{width:150px;height:150px;border-radius:50%;border:6px solid var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2.5rem;font-weight:800;color:var(--primary);box-shadow:0 0 40px rgba(255,153,0,.2)}
+        .result-card h2{color:var(--text);margin-bottom:1rem;font-size:1.4rem}
+        .result-card .detail{color:var(--text-dim);font-size:1.1rem;margin-bottom:2rem}
+        .result-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+        @media(max-width:600px){
+            .container{padding:1rem .75rem}
+            .module-grid{grid-template-columns:1fr}
+            .q-card{padding:1.5rem}
+            .quiz-top{flex-direction:column;align-items:stretch}
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>☁️ AWS Academy Quiz</h1>
+    <p>Hệ thống ôn tập Giữa kỳ — Module 2 đến 13</p>
+</div>
+<div class="container">
+
+    <!-- DASHBOARD -->
+    <div id="dashboard">
+        <h3 class="section-title">Nguồn Câu Hỏi</h3>
+        <div class="source-tabs">
+            <button class="source-tab active" onclick="setSource('original')">📚 120 Câu Gốc (Knowledge Check)</button>
+            <button class="source-tab" onclick="setSource('extra')">🧠 120 Câu Mở Rộng (AI Tạo)</button>
+        </div>
+        <h3 class="section-title">Chọn Module</h3>
+        <div class="controls">
+            <button class="btn btn-outline" onclick="toggleAll(true)">✅ Chọn tất cả</button>
+            <button class="btn btn-outline" onclick="toggleAll(false)">❌ Bỏ chọn</button>
+        </div>
+        <div class="module-grid" id="module-grid"></div>
+        <div class="start-area">
+            <p style="color:var(--text-dim)">Số câu hỏi đã chọn</p>
+            <div class="count" id="sel-count">0</div>
+            <button class="btn btn-primary btn-lg" id="start-btn" onclick="startQuiz()" disabled>🚀 BẮT ĐẦU LÀM BÀI</button>
+        </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz-interface">
+        <div class="quiz-top">
+            <button class="btn btn-outline" onclick="exitQuiz()">← Thoát</button>
+            <div class="progress-wrap">
+                <div class="progress-label"><span>Tiến độ</span><span id="prog-txt">1/10</span></div>
+                <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+            </div>
+            <div class="stats">
+                <span class="s-ok">✓ <span id="c-ok">0</span></span>
+                <span class="s-no">✗ <span id="c-no">0</span></span>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-tag" id="q-tag">Module X</div>
+            <div class="q-text" id="q-text"></div>
+            <div class="q-note" id="q-note"></div>
+            <div class="opts" id="q-opts"></div>
+
+            <div id="submit-area">
+                <button class="btn btn-submit" id="submit-btn" onclick="submitAnswer()" disabled>
+                    ✅ Nộp bài
+                </button>
+                <span class="hint" id="submit-hint"></span>
+            </div>
+
+            <div class="explain" id="q-exp">
+                <div id="q-result-label"></div>
+                <h4>💡 Giải thích chi tiết:</h4>
+                <p id="q-exp-txt"></p>
+            </div>
+
+            <div class="next-area" id="next-area">
+                <button class="btn btn-primary" onclick="nextQ()">Câu tiếp theo →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="results">
+        <div class="result-card">
+            <h2>🎉 Hoàn thành bài kiểm tra!</h2>
+            <div class="result-circle"><span id="r-pct">0%</span></div>
+            <p class="detail">Bạn trả lời đúng <span id="r-ok" class="s-ok">0</span> / <span id="r-total">0</span> câu hỏi.</p>
+            <div class="result-btns">
+                <button class="btn btn-outline" onclick="exitQuiz()">🏠 Về trang chủ</button>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Làm lại bộ đề này</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="quiz_data.js"></script>
+<script src="quiz_extra.js"></script>
+<script src="quiz_app.js"></script>
+</body>
+</html>
