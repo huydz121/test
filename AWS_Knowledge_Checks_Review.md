@@ -929,107 +929,107 @@ Các đáp án A, B, C tuy quan trọng nhưng không nằm trong danh sách 6 t
 
 ---
 
-## Module 10: Tự động hóa hạ tầng đám mây (Automating Infrastructure)
+## Module 10: Triển khai Giám sát và Tính đàn hồi (Implementing Monitoring and Elasticity)
 
 ### Câu 1
-**Câu hỏi:** Dịch vụ nào đóng vai trò là dịch vụ Hạ tầng dưới dạng mã (Infrastructure as Code - IaC) được sử dụng để tự động hóa quá trình khởi tạo và quản lý các tài nguyên AWS?
+**Câu hỏi:** Phát biểu nào về Amazon EC2 Auto Scaling là chính xác?
 **Các lựa chọn:**
-- A. AWS Systems Manager
-- B. AWS CloudFormation
-- C. AWS Elastic Beanstalk
-- D. AWS OpsWorks
-**Đáp án chuẩn:** B. AWS CloudFormation
-**Giải thích:** AWS CloudFormation là dịch vụ cho phép người dùng định nghĩa toàn bộ kiến trúc hạ tầng đám mây của mình dưới dạng các tệp tin văn bản thuần túy (theo định dạng YAML hoặc JSON). Khi tệp tin này được thực thi, hệ thống AWS sẽ tự động phân tích cú pháp và khởi tạo chính xác tất cả các tài nguyên đã được khai báo, đảm bảo quá trình triển khai diễn ra hoàn toàn tự động và không có sai sót do thao tác thủ công.
+- A. Nó có thể khởi chạy các máy chủ Amazon EC2 mới dựa trên một lịch trình.
+- B. Nó có thể khởi chạy các máy chủ Amazon EC2 ở nhiều Vùng sẵn sàng (Availability Zones) khác nhau.
+- C. Nó yêu cầu khách hàng chỉ được sử dụng Máy chủ dự phòng hợp đồng (Reserved Instances).
+- D. Nó có thể khởi chạy các máy chủ Amazon EC2, nhưng khách hàng phải tự chấm dứt (terminate) các máy chủ sau khi không còn cần đến.
+**Đáp án chuẩn:** B. Nó có thể khởi chạy các máy chủ Amazon EC2 ở nhiều Vùng sẵn sàng (Availability Zones) khác nhau.
+**Giải thích:** Amazon EC2 Auto Scaling có khả năng tự động khởi chạy các máy chủ EC2 dàn trải ra nhiều Availability Zones (AZ) khác nhau để đảm bảo hệ thống vẫn hoạt động bình thường ngay cả khi một trung tâm dữ liệu gặp sự cố.
 
 ### Câu 2
-**Câu hỏi:** Lợi ích cốt lõi của việc sử dụng phương pháp Hạ tầng dưới dạng mã (IaC) để tự động hóa quản lý tài nguyên là gì?
+**Câu hỏi:** Một kỹ sư devops phát hiện ra rằng nhu cầu truy cập vào một nhóm máy chủ Amazon EC2 trong một Auto Scaling group tăng lên một lượng nhất định vào những ngày cuối tuần. Loại mở rộng (scaling) nào là PHÙ HỢP NHẤT trong trường hợp này?
 **Các lựa chọn:**
-- A. Đơn giản hóa việc thiết lập và bảo trì các tài nguyên mạng nội bộ (on-premises).
-- B. Cung cấp một giao diện đồ họa người dùng để quản lý tài nguyên AWS.
-- C. Làm giảm sự phụ thuộc vào AWS Management Console trong việc cung cấp tài nguyên.
-- D. Cho phép sử dụng các khuôn mẫu (templates) để cung cấp và quản lý một tập hợp các tài nguyên theo một phương thức nhất quán và có thể lặp lại nhiều lần.
-**Đáp án chuẩn:** D. Cho phép sử dụng các khuôn mẫu (templates) để cung cấp và quản lý một tập hợp các tài nguyên theo một phương thức nhất quán và có thể lặp lại nhiều lần.
-**Giải thích:** Phương pháp IaC cho phép bạn viết ra các "bản thiết kế" (templates) mô tả hạ tầng. Lợi ích lớn nhất là bạn có thể tái sử dụng bản thiết kế này để triển khai hệ thống đi triển khai lại vô hạn lần (repeatable) mà vẫn đảm bảo kết quả đầu ra đồng nhất tuyệt đối (consistent), loại bỏ hoàn toàn nguy cơ sai lệch cấu hình do con người thao tác thủ công trên giao diện web.
+- A. Lập lịch (Scheduled)
+- B. Dự đoán (Predictive)
+- C. Thủ công (Manual)
+- D. Động (Dynamic)
+**Đáp án chuẩn:** A. Lập lịch (Scheduled)
+**Giải thích:** Khi đã biết chắc chắn quy luật tải tăng vào các "ngày cuối tuần" (thời gian cố định), việc sử dụng Scheduled Scaling (Lập lịch) là cách hiệu quả nhất để hệ thống chủ động thêm máy chủ đúng lúc.
 
 ### Câu 3
-**Câu hỏi:** Thành phần nào của CloudFormation được sử dụng để mô tả khai báo các tài nguyên AWS mà bạn muốn tạo và quản lý?
+**Câu hỏi:** Một kỹ sư devops khởi chạy một nhóm các máy chủ Amazon EC2 trong một Auto Scaling group phía sau một Application Load Balancer. Các máy chủ EC2 phải duy trì mức sử dụng CPU trung bình ở mức 50%. Loại mở rộng (scaling) nào là phù hợp để sử dụng dựa trên mức sử dụng CPU?
 **Các lựa chọn:**
-- A. Khuôn mẫu (Templates)
-- B. Ngăn xếp (Stacks)
-- C. Bộ thay đổi (Change sets)
-- D. Tài nguyên (Resources)
-**Đáp án chuẩn:** A. Khuôn mẫu (Templates)
-**Giải thích:** Template (Khuôn mẫu) là tệp tin văn bản (JSON hoặc YAML) chứa toàn bộ các khai báo về tài nguyên hạ tầng mà bạn muốn AWS khởi tạo. Bên trong tệp này, bạn sẽ liệt kê chi tiết cấu hình mạng lưới, máy chủ ảo, cơ sở dữ liệu và các quy tắc bảo mật cần thiết cho hệ thống.
+- A. Step scaling
+- B. Manual scaling
+- C. Target tracking scaling
+- D. Simple scaling
+**Đáp án chuẩn:** C. Target tracking scaling
+**Giải thích:** Target tracking scaling cho phép bạn đặt một con số mục tiêu (ví dụ 50% CPU), và AWS sẽ tự động điều chỉnh số lượng máy chủ để giữ cho mức CPU thực tế luôn ổn định quanh con số đó.
 
 ### Câu 4
-**Câu hỏi:** Thành phần nào của CloudFormation được sử dụng để quản lý một tập hợp toàn bộ các tài nguyên AWS như một đơn vị hệ thống duy nhất?
+**Câu hỏi:** Làm thế nào để một người dùng có thể mở rộng theo chiều dọc (vertically scale) một cơ sở dữ liệu Amazon RDS?
 **Các lựa chọn:**
-- A. Tài nguyên (Resources)
-- B. Bộ thay đổi (Change sets)
-- C. Ngăn xếp (Stacks)
-- D. Khuôn mẫu (Templates)
-**Đáp án chuẩn:** C. Ngăn xếp (Stacks)
-**Giải thích:** Khi một bản Khuôn mẫu (Template) được mang đi triển khai, AWS sẽ khởi tạo các tài nguyên vật lý thực tế và gom tất cả chúng vào một nhóm quản lý thống nhất gọi là Ngăn xếp (Stack). Bạn có thể cập nhật hoặc xóa toàn bộ Stack này cùng một lúc thay vì phải thao tác trên từng tài nguyên đơn lẻ, giúp tiết kiệm thời gian và tránh bỏ sót tài nguyên rác gây phát sinh chi phí.
+- A. Bằng cách thay đổi loại (instance class) hoặc kích thước máy chủ
+- B. Bằng cách tạo các nút đọc và ghi chuyên dụng
+- C. Bằng cách phân mảnh (sharding) cơ sở dữ liệu
+- D. Bằng cách thêm các bản sao lưu phục vụ đọc (read replicas)
+**Đáp án chuẩn:** A. Bằng cách thay đổi loại (instance class) hoặc kích thước máy chủ
+**Giải thích:** Mở rộng theo chiều dọc (Vertical Scaling) nghĩa là nâng cấp cấu hình của máy chủ đó mạnh lên (tăng CPU, RAM). Với RDS, bạn thực hiện bằng cách thay đổi DB Instance Class.
 
 ### Câu 5
-**Câu hỏi:** Một kiến trúc sư giải pháp muốn xem trước những tác động thay đổi mà CloudFormation sẽ áp dụng lên một ngăn xếp (stack) trước khi chính thức thực thi. Họ nên sử dụng thành phần nào của CloudFormation?
+**Câu hỏi:** Làm thế nào để một khách hàng AWS có thể mở rộng theo chiều ngang (horizontally scale) một cơ sở dữ liệu Amazon Aurora?
 **Các lựa chọn:**
-- A. Bộ thay đổi (Change sets)
-- B. Khuôn mẫu (Templates)
-- C. Ngăn xếp (Stacks)
-- D. Phát hiện sai lệch (Drift detection)
-**Đáp án chuẩn:** A. Bộ thay đổi (Change sets)
-**Giải thích:** Change sets (Bộ thay đổi) cho phép kiến trúc sư xem trước một bản tóm tắt đầy đủ và chi tiết về tất cả các thay đổi dự kiến sẽ diễn ra: tài nguyên nào sẽ được tạo mới, tài nguyên nào sẽ bị chỉnh sửa, và đặc biệt là tài nguyên nào sẽ bị xóa bỏ. Việc rà soát này giúp đảm bảo tính an toàn tối đa cho hệ thống sản xuất đang vận hành trước khi áp dụng bất kỳ thay đổi nào.
+- A. Bằng cách thêm các máy chủ Aurora Replica thông qua việc sử dụng Aurora Auto Scaling
+- B. Bằng cách thay đổi loại máy chủ (instance type)
+- C. Bằng cách tạo các cảnh báo Amazon CloudWatch
+- D. Bằng cách tạo một chính sách mở rộng (scaling policy)
+**Đáp án chuẩn:** A. Bằng cách thêm các máy chủ Aurora Replica thông qua việc sử dụng Aurora Auto Scaling
+**Giải thích:** Mở rộng theo chiều ngang (Horizontal Scaling) là thêm nhiều máy chạy song song. Với Amazon Aurora, bạn có thể tự động thêm các Aurora Replicas để gánh tải cho hệ thống.
 
 ### Câu 6
-**Câu hỏi:** Dịch vụ AWS nào cung cấp một giao diện quản trị tập trung thống nhất để tự động hóa và quản lý các tác vụ vận hành trên toàn bộ tài nguyên AWS của bạn?
+**Câu hỏi:** Amazon DynamoDB thực hiện mở rộng quy mô tự động (automatic scaling) như thế nào?
 **Các lựa chọn:**
-- A. AWS CloudFormation
-- B. AWS OpsWorks
-- C. AWS Systems Manager
-- D. AWS Elastic Beanstalk
-**Đáp án chuẩn:** C. AWS Systems Manager
-**Giải thích:** AWS Systems Manager (SSM) là công cụ quản lý trung tâm đa năng, cho phép quản trị viên giám sát trạng thái, thu thập thông tin cấu hình, thực thi lệnh từ xa và tự động hóa hàng loạt các tác vụ quản trị trên dàn máy chủ EC2 hoặc hạ tầng tại chỗ (on-premises), tất cả thông qua một bảng điều khiển duy nhất mà không cần đăng nhập thủ công vào từng máy chủ.
+- A. Nó thêm các bản sao lưu phục vụ đọc (read replicas) để phản ứng với nhu cầu đọc tăng lên.
+- B. Nó điều chỉnh công suất thông lượng được phân bổ (provisioned throughput capacity) để phản ứng với các kiểu lưu lượng truy cập.
+- C. Nó thêm và loại bỏ các máy chủ cơ sở dữ liệu để phản ứng với những thay đổi về lưu lượng truy cập.
+- D. Nó thay đổi loại máy chủ (instance type) để phản ứng với những thay đổi về tải xử lý.
+**Đáp án chuẩn:** B. Nó điều chỉnh công suất thông lượng được phân bổ (provisioned throughput capacity) để phản ứng với các kiểu lưu lượng truy cập.
+**Giải thích:** DynamoDB là dịch vụ serverless, nó không thêm máy ảo mà nó tự động điều chỉnh Provisioned throughput capacity (khả năng đọc/ghi dữ liệu trên giây) để khớp với lưu lượng truy cập.
 
 ### Câu 7
-**Câu hỏi:** Tính năng nào của AWS Systems Manager cung cấp khả năng thực thi các tập lệnh (scripts) hoặc mệnh lệnh trực tiếp trên một cụm (fleet) các máy chủ Amazon EC2?
+**Câu hỏi:** Một nhóm các máy chủ Amazon EC2 được khởi chạy trong một Auto Scaling group. Các máy chủ chạy một ứng dụng sử dụng giao thức tùy chỉnh trên cổng TCP 42000. Các kết nối từ hệ thống máy khách trên internet phải được cân bằng tải giữa các máy chủ. Giải pháp cân bằng tải nào là tốt nhất?
 **Các lựa chọn:**
-- A. State Manager
-- B. Run Command
-- C. Automation
-- D. Patch Manager
-**Đáp án chuẩn:** B. Run Command
-**Giải thích:** Run Command cho phép người quản trị thực thi các lệnh hệ thống (như cài đặt phần mềm, thay đổi cấu hình, thu thập nhật ký) trên hàng loạt máy chủ EC2 cùng một lúc với quy mô lớn. Điểm nổi bật là quá trình này không yêu cầu phải mở kết nối SSH hay RDP trực tiếp vào từng máy, giúp duy trì bảo mật bằng cách đóng kín các cổng mạng rủi ro.
+- A. Classic Load Balancer
+- B. Application Load Balancer
+- C. Network Load Balancer
+- D. Gateway Load Balancer
+**Đáp án chuẩn:** C. Network Load Balancer
+**Giải thích:** Với các giao thức không phải HTTP/HTTPS và sử dụng các cổng (port) tùy chỉnh, Network Load Balancer (NLB) là lựa chọn tốt nhất nhờ hiệu suất cực cao và độ trễ cực thấp.
 
 ### Câu 8
-**Câu hỏi:** Một công ty muốn xây dựng quy trình tự động hóa hoàn toàn việc cài đặt các bản vá lỗi (patching) cho các máy chủ Amazon EC2 của họ. Họ nên sử dụng tính năng nào của AWS Systems Manager?
+**Câu hỏi:** Một công ty phải xây dựng một trang web có tính sẵn sàng cao sử dụng các tập lệnh phía máy chủ (server-side scripts) để phục vụ HTML động. Giải pháp nào cung cấp tính sẵn sàng CAO NHẤT với chi phí và độ phức tạp THẤP NHẤT?
 **Các lựa chọn:**
-- A. Run Command
-- B. State Manager
-- C. Patch Manager
-- D. Automation
-**Đáp án chuẩn:** D. Automation
-**Giải thích:** Tính năng Automation được thiết kế chuyên biệt để đơn giản hóa và tự động hóa các quy trình quản trị hệ thống CNTT phức tạp và lặp đi lặp lại. Quản trị viên có thể xây dựng các Sách hướng dẫn vận hành (Runbooks) thiết lập chuỗi công việc tự động hoàn chỉnh: từ việc dừng máy ảo, sao lưu dữ liệu, áp dụng bản vá lỗi hệ điều hành, cho đến khởi động lại hệ thống, mọi bước đều diễn ra tự động theo kịch bản đã lập trình sẵn.
+- A. Khách hàng triển khai một máy chủ web thứ hai ở một Khu vực (Region) khác. Amazon Route 53 sử dụng định tuyến chuyển đổi dự phòng (failover routing) để phục hồi sau thảm họa (DR).
+- B. Một Auto Scaling group khởi chạy các máy chủ Amazon EC2, được phục vụ bởi một Network Load Balancer. Amazon Route 53 sử dụng định tuyến dựa trên độ trễ (latency-based routing).
+- C. Amazon S3 lưu trữ trang web. Phân giải tên miền DNS trỏ đến S3 bucket.
+- D. Một Auto Scaling group khởi chạy các máy chủ Amazon EC2, được phục vụ bởi một Application Load Balancer. Phân giải tên miền DNS trỏ đến load balancer.
+**Đáp án chuẩn:** D. Một Auto Scaling group khởi chạy các máy chủ Amazon EC2, được phục vụ bởi một Application Load Balancer. Phân giải tên miền DNS trỏ đến load balancer.
+**Giải thích:** Mô hình kết hợp Auto Scaling + Application Load Balancer là mô hình chuẩn nhất để đảm bảo tính sẵn sàng cao cho website động với chi phí và quản trị tối ưu nhất.
 
 ### Câu 9
-**Câu hỏi:** Dịch vụ AWS nào mang đến giải pháp dễ dàng nhất cho các nhà phát triển để triển khai và mở rộng quy mô các ứng dụng web, hỗ trợ sẵn hàng loạt các nền tảng ngôn ngữ lập trình phổ biến?
+**Câu hỏi:** Người dùng ở vị trí A kết nối với một ứng dụng ở Region A. Người dùng ở vị trí B kết nối với cùng một ứng dụng ở Region B. Nếu ứng dụng ở Region A trở nên không lành mạnh (unhealthy), lưu lượng truy cập cho vị trí A phải được chuyển hướng đến ứng dụng ở Region B. Giải pháp nào đáp ứng yêu cầu này?
 **Các lựa chọn:**
-- A. AWS OpsWorks
-- B. AWS CloudFormation
-- C. AWS Systems Manager
-- D. AWS Elastic Beanstalk
-**Đáp án chuẩn:** D. AWS Elastic Beanstalk
-**Giải thích:** Elastic Beanstalk là nền tảng Nền tảng dưới dạng dịch vụ (PaaS) giúp lập trình viên triển khai ứng dụng cực kỳ nhanh chóng. Người phát triển chỉ cần tải mã nguồn ứng dụng lên (viết bằng Java, .NET, PHP, Node.js, Python, Ruby, Go...), Elastic Beanstalk sẽ tự động đảm nhận toàn bộ quá trình thiết lập hạ tầng phức tạp bao gồm khởi tạo máy chủ, cấu hình bộ cân bằng tải, thiết lập tự động mở rộng và giám sát tình trạng sức khỏe hệ thống.
+- A. Sử dụng định tuyến dựa trên độ trễ (latency-based routing) trong Amazon Route 53 với các cảnh báo Amazon CloudWatch.
+- B. Sử dụng định tuyến vị trí địa lý xấp xỉ (geoproximity routing) và một Network Load Balancer được gắn vào cả hai Region.
+- C. Sử dụng một Application Load Balancer với các cảnh báo Amazon CloudWatch.
+- D. Sử dụng định tuyến vị trí địa lý (geolocation routing) với các bản ghi chuyển đổi dự phòng (failover records) trong Amazon Route 53.
+**Đáp án chuẩn:** D. Sử dụng định tuyến vị trí địa lý (geolocation routing) với các bản ghi chuyển đổi dự phòng (failover records) trong Amazon Route 53.
+**Giải thích:** Để điều hướng người dùng theo vị trí, bạn dùng Geolocation routing. Để tự động chuyển hướng khi một vùng gặp sự cố, bạn dùng bản ghi Failover của Amazon Route 53.
 
 ### Câu 10
-**Câu hỏi:** Lợi ích kỹ thuật lớn nhất của việc sử dụng AWS Elastic Beanstalk để triển khai các ứng dụng web là gì?
+**Câu hỏi:** Một kỹ sư phần mềm đã tạo một tài khoản AWS cho mục đích phát triển và thử nghiệm cá nhân của riêng họ. Họ muốn tài khoản nằm trong hạn mức AWS Free Tier và không phát sinh các chi phí ngoài dự kiến. Phương pháp nào sẽ hiệu quả và đòi hỏi ÍT CÔNG SỨC NHẤT?
 **Các lựa chọn:**
-- A. Cung cấp toàn quyền kiểm soát tuyệt đối đối với các tài nguyên hạ tầng cơ sở bên dưới.
-- B. Tự động xử lý hoàn toàn các khâu triển khai, phân bổ năng lực máy chủ, cân bằng tải và tự động mở rộng quy mô ứng dụng.
-- C. Trực tiếp làm giảm chi phí vận hành khi chạy các ứng dụng web trên hạ tầng AWS.
-- D. Cho phép sử dụng các khuôn mẫu (templates) để chủ động cung cấp và quản lý tài nguyên AWS.
-**Đáp án chuẩn:** B. Tự động xử lý hoàn toàn các khâu triển khai, phân bổ năng lực máy chủ, cân bằng tải và tự động mở rộng quy mô ứng dụng.
-**Giải thích:** Đây là giá trị cốt lõi và tính năng nổi bật nhất của Elastic Beanstalk. Nền tảng này giúp ẩn đi toàn bộ sự phức tạp của hạ tầng điện toán đám mây bên dưới. Nó tự động hóa tất cả những công việc cấu trúc hệ thống nặng nhọc (triển khai mã nguồn, cấp phát tài nguyên máy chủ, thiết lập cân bằng tải, cấu hình tự động mở rộng), qua đó cho phép đội ngũ kỹ sư phần mềm chuyên tâm hoàn toàn vào việc phát triển tính năng sản phẩm và viết mã ứng dụng.
+- A. Tạo một Service Control Policy (SCP) để hạn chế tất cả các dịch vụ không được bao gồm trong AWS Free Tier.
+- B. Tạo một cảnh báo Amazon CloudWatch để gửi thông báo email khi chi phí tài khoản vượt quá $0.
+- C. Tạo một Amazon CloudWatch metric để giám sát chi phí tài khoản và giới hạn nó ở mức $0.
+- D. Đăng nhập vào AWS Management Console mỗi tháng và kiểm tra bảng điều khiển thanh toán (billing dashboard).
+**Đáp án chuẩn:** B. Tạo một cảnh báo Amazon CloudWatch để gửi thông báo email khi chi phí tài khoản vượt quá $0.
+**Giải thích:** Cách đơn giản và hiệu quả nhất là cài một cái CloudWatch alarm. Chỉ cần chi phí vượt quá 0 USD, hệ thống sẽ tự động gửi email báo động cho bạn.
 
 ---
 
